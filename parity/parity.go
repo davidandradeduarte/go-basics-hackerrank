@@ -21,7 +21,7 @@ type in struct {
 	evenChan chan int32
 }
 
-var serverChan chan (in) = make(chan in)
+var serverChan chan in
 
 func Server() {
 	for v := range serverChan {
@@ -57,6 +57,7 @@ func main() {
 
 	oddChan := make(chan int32)
 	evenChan := make(chan int32)
+	serverChan = make(chan in, len(arr))
 	for idx := 0; idx < len(arr); idx++ {
 		i := idx
 		serverChan <- in{arr[i], oddChan, evenChan}
